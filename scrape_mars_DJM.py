@@ -21,6 +21,9 @@ def init_browser():
 def scrape_info():
     browser = init_browser()
 
+    #Create master dictionary to hold all the variables
+    scrape_dict = {}
+
 #_______________________________________________________________
     # ### Nasa Mars News Scrape
 
@@ -54,8 +57,8 @@ def scrape_info():
     # print(news_p[0])
 
     #Set news_title and news_teaser variables with the first item in each list respectively
-    news_title = titles[0]
-    news_teaser = news_p[0]
+    scrape_dict['news_title'] = titles[0]
+    scrape_dict ['news_teaser'] = news_p[0]
 
 #_______________________________________________________________
     # ### JPL Mars Space - Featured Image Scrape
@@ -81,7 +84,7 @@ def scrape_info():
     main_url = 'https://www.jpl.nasa.gov'
 
     #Concatenate the full url for the image
-    featured_image_url = main_url + img_string
+    scrape_dict['featured_image_url'] = main_url + img_string
 
     #Print out string to verify
     # print(featured_image_url)
@@ -111,7 +114,7 @@ def scrape_info():
     # print(tweets[0])
 
     #Set mars_weather variable with first item in tweets list
-    mars_weather = tweets[0]
+    scrape_dict['mars_weather'] = tweets[0]
 
 
 #_______________________________________________________________
@@ -133,7 +136,7 @@ def scrape_info():
     # table_df.head()
 
     #Convert the dataframe back to html string 
-    html_table = table_df.to_html()
+    scrape_dict['table'] = table_df.to_html()
 
 
 #_______________________________________________________________
@@ -224,8 +227,15 @@ def scrape_info():
 
     hemisphere_image_urls.append(image_dict4)
 
-    #Print hemispere_image_urls to verify
+    scrape_dict['hemisphere_image_urls'] = hemisphere_image_urls
+
+    browser.quit()
+
+    return scrape_dict
+
+    #Print hemispere_image_urls to verify and print scrape_dict to make sure everything is in the master dictionary
     # print(hemisphere_image_urls)
+    #print(scrape_dict)
 
 
 
