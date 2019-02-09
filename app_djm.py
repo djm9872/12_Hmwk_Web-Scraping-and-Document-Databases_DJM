@@ -34,7 +34,7 @@ def home():
 
     # table = mongo.db.collection.find_one({"table":})    
     # Return template and data
-    return render_template("index_djm.html", scrape=destination_data, tables=[table.to_html()], titles=['Testing'])
+    return render_template("index_djm.html", scrape=destination_data, tables=[table.to_html(index=False)])
 
 
 # Route that will trigger the scrape function
