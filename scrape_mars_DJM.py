@@ -116,38 +116,8 @@ def scrape_info():
     #Set mars_weather variable with first item in tweets list
     scrape_dict['mars_weather'] = tweets[0]
 
-
-#_______________________________________________________________
-    # ### Mars Facts Scrape
-
-    url = 'https://space-facts.com/mars/'
-
-    #Read the url with pandas to find the table
-    tables = pd.read_html(url)
-    print(tables)
-
-    #Create a dataframe with the first table
-    table_df = tables[0]
-
-    #Rename the dataframe columns
-    table_df.columns = ['description', 'fact']
-
-    #Verify dataframe
-    # table_df.head()
-
-    #Convert the dataframe back to html string 
-    scrape_dict['table'] = table_df.to_html()
-
-
 #_______________________________________________________________
     # ### Mars Hemispheres Scrape
-
-    #Set list and dictionaries to store scraped data
-    hemisphere_image_urls = []
-    image_dict1 = {}
-    image_dict2 = {}
-    image_dict3 = {}
-    image_dict4 = {}
 
     #Go to desired url and click on the required page link to get the first image
     url = 'https://astrogeology.usgs.gov/search/results?q=hemisphere+enhanced&k1=target&v1=Mars'
@@ -164,14 +134,11 @@ def scrape_info():
 
     #Find the title of the desired image and append to a dictionary
     name = container.find('h2', class_='title').text
-    image_dict1['title'] = name
+    scrape_dict['title1'] = name
 
     #Find the image url and append to the dictionary
     image = container.find('div', class_='downloads').li.a['href']
-    image_dict1['img_url'] = image
-
-    #Append the dictionary to the list
-    hemisphere_image_urls.append(image_dict1)
+    scrape_dict['img1'] = image
 
     #Go back one page in the browser and then click into the next page
     browser.click_link_by_partial_text('Back')
@@ -185,13 +152,10 @@ def scrape_info():
     container = soup.find('div', class_='container')
 
     name = container.find('h2', class_='title').text
-    image_dict2['title'] = name
+    scrape_dict['title2'] = name
 
     image = container.find('div', class_='downloads').li.a['href']
-    image_dict2['img_url'] = image
-
-    hemisphere_image_urls.append(image_dict2)
-
+    scrape_dict['img2'] = image
 
     browser.click_link_by_partial_text('Back')
     time.sleep(1)
@@ -203,12 +167,10 @@ def scrape_info():
     container = soup.find('div', class_='container')
 
     name = container.find('h2', class_='title').text
-    image_dict3['title'] = name
+    scrape_dict['title3'] = name
 
     image = container.find('div', class_='downloads').li.a['href']
-    image_dict3['img_url'] = image
-
-    hemisphere_image_urls.append(image_dict3)
+    scrape_dict['img3'] = image
 
     browser.click_link_by_partial_text('Back')
     time.sleep(1)
@@ -220,24 +182,40 @@ def scrape_info():
     container = soup.find('div', class_='container')
 
     name = container.find('h2', class_='title').text
-    image_dict4['title'] = name
+    scrape_dict['title4'] = name
 
     image = container.find('div', class_='downloads').li.a['href']
-    image_dict4['img_url'] = image
-
-    hemisphere_image_urls.append(image_dict4)
-
-    scrape_dict['hemisphere_image_urls'] = hemisphere_image_urls
+    scrape_dict['img4'] = image
 
     browser.quit()
 
     return scrape_dict
 
-    #Print hemispere_image_urls to verify and print scrape_dict to make sure everything is in the master dictionary
-    # print(hemisphere_image_urls)
+
     #print(scrape_dict)
 
 
+def scrape_table():
+     #_______________________________________________________________
+    # ### Mars Facts Scrape
+    browser = init_browser()
+    url = 'https://space-facts.com/mars/'
 
-      
+    #Read the url with pandas to find the table
+    tables = pd.read_html(url)
+    
+
+    #Create a dataframe with the first table
+    table_df = tables[0]
+
+    #Rename the dataframe columns
+    table_df.columns = ['Description', 'Fact']
+
+    #Verify dataframe
+    # table_df.head()
+
+    #Convert the dataframe back to html string 
+    table = table_df 
+
+    return table
 

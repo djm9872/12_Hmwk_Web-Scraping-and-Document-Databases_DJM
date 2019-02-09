@@ -27,10 +27,14 @@ collection = db.scrape_table
 def home():
 
     # Find one record of data from the mongo database
+   
+    table = scrape_mars_djm.scrape_table()
+
     destination_data = mongo.db.collection.find_one()
 
+    # table = mongo.db.collection.find_one({"table":})    
     # Return template and data
-    return render_template("index_djm.html", scrape=destination_data)
+    return render_template("index_djm.html", scrape=destination_data, tables=[table.to_html()], titles=['Testing'])
 
 
 # Route that will trigger the scrape function
@@ -38,10 +42,10 @@ def home():
 def scrape():
 
     # Run the scrape function
-    mars_data = scrape_mars_djm.scrape_info()
-
+    scrape_dict = scrape_mars_djm.scrape_info()
+    
     # Update the Mongo database using update and upsert=True
-    mongo.db.collection.update({}, mars_data, upsert=True)
+    mongo.db.collection.update({}, scrape_dict, upsert=True)
 
     # Redirect back to home page
     return redirect("/")
@@ -49,3 +53,6 @@ def scrape():
 
 if __name__ == "__main__":
     app.run(debug=True)
+
+
+#  destination_data = list(mongo.db.collection.find_one({}, {"table":1})

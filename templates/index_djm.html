@@ -19,33 +19,108 @@
       <h1>Mission to Mars</h1>
       <p><a class="btn btn-primary btn-lg" href="/scrape" role="button">Scrape New Data</a></p>
     </div>
-
+  </div>
      <!-- Start of container -->
-     <div class="container">
-
+     <!-- <div class="container-fluid"> -->
+    <div class="container">
         <section class="row">
           <div class="col-md-12">
-            <article class="description-content">
-              <h1 class="description-header">Latest Mars News</h1>
-              <hr class="description-hr"/>
-              <h3>{{ scrape.news_tite }}</h3>
-              <p>{{ scrape.news_teaser }}</p>
-            </article>
+              <h3>Latest Mars News</h3>
+              <h4> {{ scrape.news_title }} </h4>
+              <p> {{ scrape.news_teaser }} </p>
           </div>
         </section>
-
+<!-- Start first row -->
         <section class="row">
             <div class="col-md-8">
-              <article class="description-content">
-                <h1 class="description-header">Featured Mars Image</h1>
-                <hr class="description-hr"/>
-                <img src="{{ scrape.featured_image_url }}" alt="Featured Mars Image">
-              </article>
+                <h3>Featured Mars Image</h3>
+                <img class="img-responsive" src="{{ scrape.featured_image_url }}"  alt="Responsive image">
             </div>
-        </section>
 
-    </div>
-      <!-- End of container -->
+            <div class="col-md-4">
+             
+              <div class="panel panel-default">
+                <div class="panel-body">
+                    <h4> Current Weather on Mars </h4>
+                    <p> {{ scrape.mars_weather }} </p>
+                </div>
+              </div>
+              
+              <h3>Mars Facts</h3>
+              <div class="table-responsive">
+                {% for table in tables %}
+                  {{ table|safe }}
+                {% endfor %}
+              </div>
+              
+            </div>
+
+        </section>
+        <!-- End first row with two columns -->
+        <!-- Start second row -->
+        <section class="row">
+            <div class="col-md-12">
+          <h1 class= 'text-center'>Mars Hemispheres</h1>
+          <hr>
+        </section>
+   <!-- End second row -->
+   <!-- Start Third Row -->
+        <section class="row">
+            <div class="col-md-6">
+              
+              <div class="panel panel-default">
+                  <div class="panel-body">
+                      <img class="img-responsive" src="{{ scrape.img1 }}"  alt="Valles Hemisphere">
+                      <h4> {{ scrape.title1 }} </h4>
+                  </div>
+              </div>
+
+            </div>
+
+          <div class="col-md-6">
+              
+              <div class="panel panel-default">
+                  <div class="panel-body">
+                      <img class="img-responsive" src="{{ scrape.img2 }}"  alt="Cerberus Hemisphere">
+                      <h4> {{ scrape.title2 }} </h4>
+                  </div>
+              </div>
+              
+            </div>
+
+        </section>
+<!-- End third row -->
+<!-- Start fourth row -->
+        <section class="row">
+            <div class="col-md-6">
+              
+              <div class="panel panel-default">
+                  <div class="panel-body">
+                      <img class="img-responsive" src="{{ scrape.img3 }}"  alt="Valles Hemisphere">
+                      <h4> {{ scrape.title3 }} </h4>
+                  </div>
+              </div>
+
+            </div>
+
+          <div class="col-md-6">
+              
+              <div class="panel panel-default">
+                  <div class="panel-body">
+                      <img class="img-responsive" src="{{ scrape.img4 }}"  alt="Cerberus Hemisphere">
+                      <h4> {{ scrape.title4 }} </h4>
+                  </div>
+              </div>
+              
+            </div>
+
+        </section>
+<!-- End fourth row -->
+        <!-- End of second container-fluid -->
+      </div>
+
+  </div>
+      <!-- End of first container-fluid -->
     
 </body>
 
